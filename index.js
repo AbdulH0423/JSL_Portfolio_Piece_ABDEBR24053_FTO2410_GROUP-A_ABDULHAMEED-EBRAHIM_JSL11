@@ -291,21 +291,53 @@ function toggleTheme() {
 
 
 
-function openEditTaskModal(task) {
-  // Set task details in modal inputs
-  
+function openEditTaskModal(taskId) {
+  const tasks = getTasks();         // Retrieve all tasks from local storage
+  const task = tasks.find(task => task.id === taskId); // Find the task to edit
+      
+      console.log("All tasks from local storage:", tasks); // Debugging
+      console.log("Looking for task ID:", taskId); // Debugging
 
-  // Get button elements from the task modal
+      const taskToEdit = tasks.find(task => task.id === Number(taskId))
 
+  if (!taskToEdit) {
+      console.error("Task not found!");
+      return;
+  }
 
-  // Call saveTaskChanges upon click of Save Changes button
- 
+  // Get modal elements
+  const editModal = document.querySelector(".edit-task-modal-window");
+  const titleInput = document.getElementById("edit-task-title-input");
+  const descInput = document.getElementById("edit-task-desc-input");
+  const statusSelect = document.getElementById("edit-select-status");
+  const saveBtn = document.getElementById("save-task-changes-btn");
+  const deleteBtn = document.getElementById("delete-task-btn");
+  const cancelBtn = document.getElementById("cancel-edit-btn");
 
-  // Delete task using a helper function and close the task modal
+  if (!editModal || !titleInput || !descInput || !statusSelect || !saveBtn || !deleteBtn) {
+      console.error("Edit modal elements not found!");
+      return;
+  }
 
+  // Populate modal fields with existing task data
+  titleInput.value = taskToEdit.title;
+  descInput.value = taskToEdit.description;
+  statusSelect.value = taskToEdit.status;
 
-  toggleModal(true, elements.editTaskModal); // Show the edit task modal
+  // Open the modal
+  editModal.style.display = "block";
+
+  // Set up event listeners for save and delete buttons
+  saveBtn.onclick = () => saveTaskChanges(taskId);
+  deleteBtn.onclick = () => {
+      deleteTask(taskId);
+      editModal.style.display = "none"; // Close modal after deletion
+      refreshTasksUI(); // Refresh the UI to remove the deleted task
+  };
+  cancelBtn.onclick = () => editModal.style.display = "none"
 }
+
+
 
 function saveTaskChanges(taskId) {
   // Get new user inputs

@@ -100,9 +100,11 @@ function displayBoards(boards) {
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
   const filteredTasks = tasks.filter(task => task.board === boardName);
+  console.log(`filtered tasks:`, filteredTasks); //debugging log
 
-  // Ensure the column titles are set outside of this function or correctly initialized before this function runs
 
+
+  
   elements.columnDivs.forEach(column => {
     const status = column.getAttribute("data-status");
     // Reset column content while preserving the column title
@@ -168,9 +170,19 @@ function addTaskToUI(task) {
   }
 
   const taskElement = document.createElement('div');
-  taskElement.className = 'task-div';
-  taskElement.textContent = task.title; // Modify as needed
+  taskElement.classList.add('task-div');
   taskElement.setAttribute('data-task-id', task.id);
+  taskElement.innerHTML = `
+    <h3>${task.title}</h3>
+    <p>${task.description}</p>
+    <span>${task.status}</span>
+    <span>${task.board}</span>
+  `; 
+
+
+  taskElement.addEventListener("click", function(){
+    openEditTaskModal(task.id);
+  });
   
   tasksContainer.appendChild(taskElement); 
 }

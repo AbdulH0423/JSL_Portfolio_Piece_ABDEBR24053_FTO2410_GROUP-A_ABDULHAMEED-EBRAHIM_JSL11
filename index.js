@@ -113,6 +113,8 @@ function filterAndDisplayTasksByBoard(boardName) {
                           <h4 class="columnHeader">${status.toUpperCase()}</h4>
                         </div>`;
 
+
+
     const tasksContainer = document.createElement("div"); //might need to add a classlist?
     column.appendChild(tasksContainer);
 
@@ -242,15 +244,38 @@ function addTask(event) {
   event.preventDefault(); 
 
   //Assign user input to the task object
-    const task = {
-      
-    };
-    const newTask = createNewTask(task);
-    if (newTask) {
-      addTaskToUI(newTask);
-      toggleModal(false);
-      elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
-      event.target.reset();
+  const taskTitle = document.getElementById("title-input").value.trim();
+  const taskDescription = document.getElementById("desc-input").value.trim();
+  const taskStatus = document.getElementById("status-input").value;
+//Make sure there is a title.
+  if (!taskTitle){
+    alert("Please enter a title for your task");
+    return;
+  }
+
+  // Define newTask object
+  const newTask = {
+    id: Date.now(),  // Generate a unique ID for the new task
+    title: taskTitle,
+    description: taskDescription,
+    status: taskStatus,
+    board: activeBoard  // Use activeBoard as the default board for new task
+  };
+
+
+    createNewTask(newTask);
+    addTaskToUI(newTask);
+    refreshTasksUI();
+
+    
+    toggleModal(false);
+    elements.filterDiv.style.display = "none";
+
+      // Clear input fields
+      document.getElementById("title-input").value = "";
+      document.getElementById("description-input").value = "";
+      document.getElementById("status-input").value = "To-Do";
+
       refreshTasksUI();
     }
 }
@@ -304,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function init() {
+  initializeData()
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);

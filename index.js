@@ -18,7 +18,7 @@ function initializeData() {
 
     localStorage.setItem('show-SideBar', JSON.stringify(true));
   } else {
-    console.log('Data already exists in localStorage');
+    console.log('Data already exists in localStorage', JSON.parse(localStorage.getItem("tasks")));
   }
 }
 
@@ -132,7 +132,6 @@ function filterAndDisplayTasksByBoard(boardName) {
         console.log("Task clicked, ID:", taskId);  // Debugging
         openEditTaskModal(taskId);  // Pass the task ID to open the modal
       });
-
       tasksContainer.appendChild(taskElement);
     });
   });

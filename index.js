@@ -309,17 +309,42 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  
+  const updatedTitle = document.getElementById("edit-task-title-input").value.trim();
+  const updatedDescription = document.getElementById("edit-task-desc-input").value.trim();
+  const updatedStatus = document.getElementById("edit-select-status").value;
 
-  // Create an object with the updated task details
+
+  if (!updatedTitle){
+    alert("Please enter a title");
+    return;
+  }
+
+  let tasks = getTasks();
+  const taskIndex = tasks.findIndex(task => task.id === task.id);
 
 
-  // Update task using a hlper functoin
- 
+  if (taskIndex === -1) {
+    console.error("Task not found!"); //debugging
+    return;
+  }
 
-  // Close the modal and refresh the UI to reflect the changes
+  tasks[taskIndex] = {
+    ...tasks[taskIndex],
+    title: updatedTitle,
+    description: updatedDescription,
+    status: updatedStatus
+  };
+
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  console.log("Task Updated:", tasks[taskIndex]);
+
+  toggleModal(false, elements.editTaskModal);//debugging
+
 
   refreshTasksUI();
+
 }
 
 /*************************************************************************************************************************************************/

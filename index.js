@@ -2,7 +2,7 @@
 // TASK: import initialData
 //import { functionName } from
 
-import { getTasks, createNewTask } from './utils/taskFunctions.js';
+import { getTasks, createNewTask, patchTask, putTask, deleteTask} from './utils/taskFunctions.js';
 
 import { initialData } from './initialData.js';
 

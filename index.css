@@ -180,7 +180,7 @@ h4 {
   bottom: 45px;
   border-radius: 0 20px 20px 0;
   background-color: #219C90;
-  display: none;
+  display : block;
   cursor: pointer;
 }
 
@@ -800,6 +800,10 @@ input:checked + #label-checkbox-theme:after {
 
 .logo-mobile {
   display: none;
+}
+
+.hidden {
+  display: none !important; /* Ensures it is actually hidden */
 }
 
 @media screen and (max-width: 800px) {

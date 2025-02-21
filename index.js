@@ -27,13 +27,16 @@ const elements = {
   headerBoardName: document.getElementById("header-board-name"),
   columnDivs: document.querySelectorAll(".column-div"),
   filterDiv: document.getElementById("filterDiv"),
+  sideBar : document.getElementById("side-bar-div"),
   hideSideBarBtn: document.getElementById("hide-side-bar-btn"),
   showSideBarBtn: document.getElementById("show-side-bar-btn"),
+  addTaskBtn: document.getElementById("add-new-task-btn"),
   createNewTaskBtn: document.getElementById("create-task-btn"),
-  modalWindow: document.getElementById("new-task-modal-window"),
+  modalWindow : document.getElementById("new-task-modal-window"),
   taskForm: document.getElementById("edit-task-form"),
   themeSwitch: document.getElementById("switch"),
   editTaskModal: document.getElementById("edit-task-modal-window"),
+
 
 }
 

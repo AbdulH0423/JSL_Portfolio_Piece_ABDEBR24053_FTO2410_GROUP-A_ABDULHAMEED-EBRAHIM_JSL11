@@ -127,8 +127,10 @@ function filterAndDisplayTasksByBoard(boardName) {
       taskElement.setAttribute('data-task-id', task.id);
 
       // Listen for a click event on each task and open a modal
-      taskElement.addEventListener("click", function(){ 
-        openEditTaskModal(task);
+      taskElement.addEventListener("click", function() {
+        const taskId = taskElement.getAttribute('data-task-id');
+        console.log("Task clicked, ID:", taskId);  // Debugging
+        openEditTaskModal(taskId);  // Pass the task ID to open the modal
       });
 
       tasksContainer.appendChild(taskElement);
@@ -147,16 +149,17 @@ function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').forEach(btn => { 
     
     if(btn.textContent === boardName) {
-      btn.classList.add('active')  // Fix: Use `classList.add()`
+      btn.classList.add('active')  // Use `classList.add()` to add a class
     }
     else {
-      btn.classList.remove('active'); // Fix: Use `classList.remove()`
+      btn.classList.remove('active'); // Use `classList.remove()` to remove the class
     }
   });
 }
 
 
 function addTaskToUI(task) {
+  
   const column = document.querySelector(`.column-div[data-status="${task.status}"]`); 
   if (!column) {
     console.error(`Column not found for status: ${task.status}`);
@@ -277,7 +280,6 @@ function addTask(event) {
       document.getElementById("status-input").value = "To-Do";
 
       refreshTasksUI();
-    }
 }
 
 

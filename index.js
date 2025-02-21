@@ -46,13 +46,25 @@ let activeBoard = ""
 // TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
+  if (!Array.isArray(tasks) || tasks.length === 0) {
+    console.error("No tasks found!");
+    return;}
+
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
+  console.log("Boards found:", boards); // Debugging
+
+
   displayBoards(boards);
+
+
   if (boards.length > 0) {
-    const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
-    activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
-    elements.headerBoardName.textContent = activeBoard
-    styleActiveBoard(activeBoard)
+    activeBoard = JSON.parse(localStorage.getItem("activeBoard")) || boards[0];
+    console.log("Active Board:", activeBoard); // Debugging log
+
+    elements.headerBoardName.textContent = activeBoard;
+    
+    styleActiveBoard(activeBoard);
+
     refreshTasksUI();
   }
 }

@@ -367,6 +367,8 @@ function saveTaskChanges(taskId) {
     status: updatedStatus
   };
 
+  patchTask(taskId);
+  putTask(taskId);
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
